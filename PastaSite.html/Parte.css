@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  background-color: #fff8f0;
+  overflow: hidden;
+  position: relative;
+}
+
+h1 {
+  color: #cc0000;
+}
+
+.grafico-container {
+  width: 600px;
+  margin: auto;
+}
+
+.entrada {
+  margin-top: 40px;
+  text-align: center;
+}
+
+input, button {
+  padding: 6px;
+  margin: 5px;
+}
+
+/* Estilo da pipoca */
+.pipoca {
+  position: absolute;
+  top: -30px;
+  width: 20px;
+  height: 20px;
+  background-image: url('https://i.imgur.com/QIDN0W8.png'); /* ícone de pipoca */
+  background-size: cover;
+  animation: cair 5s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes cair {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}

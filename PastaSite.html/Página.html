@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visualização - Festa Junina</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <h1>Gráfico de Itens Preferidos - Festa Junina</h1>
+  <div class="grafico-container">
+    <canvas id="graficoItens"></canvas>
+  </div>
+
+  <div class="entrada">
+    <h2>Adicionar Novo Dado Manualmente</h2>
+    <label>Item: <input type="text" id="novoItem" /></label>
+    <label>Quantidade: <input type="number" id="novaQtd" /></label>
+    <button onclick="adicionarDado()">Adicionar</button>
+  </div>
+
+  <div class="entrada">
+    <h3>Copiar Dados para Código</h3>
+    <textarea rows="10" cols="60" readonly>
+const dadosManual = [
+  { item: 'Pipoca', total: 12 },
+  { item: 'Cachorro-quente', total: 8 },
+  { item: 'Canjica', total: 6 },
+  { item: 'Pé-de-moleque', total: 7 },
+  { item: 'Paçoca', total: 5 }
+];
+    </textarea>
+  </div>
+
+  <script>
+    let labels = ['Pipoca', 'Cachorro-quente', 'Canjica', 'Pé-de-moleque', 'Paçoca'];
+    let dados = [12, 8, 6, 7, 5];
+
+    const ctx = document.getElementById('graficoItens');
+    const graficoItens = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Quantidade de votos',
+          data: dados,
+          borderWidth: 1,
+          backgroundColor: ['#e74c3c', '#f39c12', '#2ecc71', '#9b59b6', '#3498db']
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    function adicionarDado() {
+      const item = document.getElementById('novoItem').value;
+      const qtd = parseInt(document.getElementById('novaQtd').value);
+      if (item && !isNaN(qtd)) {
+        const index = labels.indexOf(item);
+        if (index !== -1) {
+          dados[index] += qtd;
+        } else {
+          labels.push(item);
+          dados.push(qtd);
+          graficoItens.data.datasets[0].backgroundColor.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+        }
+        graficoItens.update();
+      }
+    }
+
+    // Criar várias pipocas caindo
+    for (let i = 0; i < 20; i++) {
+      const pipoca = document.createElement('div');
+      pipoca.classList.add('pipoca');
+      pipoca.style.left = Math.random() * 100 + 'vw';
+      pipoca.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      pipoca.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(pipoca);
+    }
+  </script>
+</body>
+</html>
